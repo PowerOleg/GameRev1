@@ -19,14 +19,23 @@ public class GameController {
     }
 
     public int inputCoordinate(String coordinate) {
-        System.out.printf("Enter your coordinate %s", coordinate);
+        System.out.printf("Please input your coordinate %s: ", coordinate);
         return scanner.nextInt();
         }
-
+    public String inputStringCoordinate(String coordinate) {                    //добавил дичь v1
+        System.out.printf("Please input your coordinate %s: ", coordinate);
+        return scanner.next();
+    }
     //устанавка фигурки игрока на поле, если не удалось, то !!!!!!!
     public void movePlayer(int x, int y, Player player) {
         field.setCellField(x, y, player.getFIGURE());
     }
+
+
+
+
+
+
     public String currentMove() {
         String[][] temp = field.getStateField();
         int lengthTemp = temp.length;
@@ -36,9 +45,7 @@ public class GameController {
                 if (temp[i][j] != " ") {
                     count ++;
                 }
-
             }
-
         }
         if (count == field.getSIZE_FIELD()*field.getSIZE_FIELD()) {
             return null;
@@ -48,29 +55,58 @@ if (count %2 == 0) {
 }
 return player2.getFIGURE();
     }
+
+
+
+
+
+
+
+
+
     public boolean endGame() {
         if (currentMove() != null) {
             return false;
         }
         return true;
     }
-    private boolean getWinner(Player player) {
+    public boolean getWinner(Player player) {
+        System.out.printf("H=%s, V=%s, D1=%s, D2=%s\n",checkHorizontal(player), checkVertical(player),checkDiagonal1(player), checkDiagonal2(player));
+        return checkHorizontal(player) || checkVertical(player) || checkDiagonal1(player) || checkDiagonal2(player);
+    }
+    public String getWinnerName() {
+        if (getWinner(player1)){
+            return player1.getNAME();
+        } else if (getWinner(player2)) {
+            return player2.getNAME();
+        }
+        return "no winner";
+    }
+
+
+    public boolean checkHorizontal(Player player) {
         int count;
-        //проверка по горизонтали
         for (int i = 0; i < field.getSIZE_FIELD(); i++) {
             count = 0;
             for (int j = 0; j < field.getSIZE_FIELD(); j++) {
+                /* ? */
                 if (field.getCellField(i, j) == player.getFIGURE()) {
                     count++;
                 }
                 if (count == field.getSIZE_FIELD()) {
                     return true;
+                }
             }
 
-            }
+
+
         }
-        //проверка по вертикали
-        for (int i = 0; i < field.getSIZE_FIELD(); i++) {
+        return false;
+    }
+
+    public boolean checkVertical (Player player) {
+        int count;
+        for (int i = 0; i < field.getSIZE_FIELD(); i++) {                  //может тут вначале должен быть j
             count = 0;
             for (int j = 0; j < field.getSIZE_FIELD(); j++) {
                 if (field.getCellField(j, i) == player.getFIGURE()) {
@@ -81,23 +117,13 @@ return player2.getFIGURE();
                 }
             }
         }
-    //проверка по диагонали
-    count=0;
+        return false;
+    }
+
+    public boolean checkDiagonal1 (Player player) {
+        int count=0;
         for (int i = 0; i < field.getSIZE_FIELD(); i++) {
-            for (int j = 0; j < field.getSIZE_FIELD(); j++) {
-                if (field.getCellField(i, j) == player.getFIGURE()) {
-                    count++;
-                    break;
-                }
-            }
-        }
-    if (count == field.getSIZE_FIELD()) {
-    return true;
-}
-    //проверка по диагонали2
-count = 0;
-        for (int i = field.getSIZE_FIELD(); i >= 0; i--) {
-            for (int j = field.getSIZE_FIELD(); j < 0; j--) {
+            for (int j = i; j <= i; j++) {
                 if (field.getCellField(i, j) == player.getFIGURE()) {
                     count++;
                     break;
@@ -108,15 +134,25 @@ count = 0;
             return true;
         }
         return false;
+    }
 
-    }
-    public String getWinnerName() {
-        if (getWinner(player1)){
-            return player1.getNAME();
-        } else if (getWinner(player2)) {
-            return player2.getNAME();
+    public boolean checkDiagonal2 (Player player) {
+        int count = 0;
+        for (int i = field.getSIZE_FIELD()-1; i >= 0; i--) {
+            for (int j = field.getSIZE_FIELD()-1-i; j >= field.getSIZE_FIELD()-1-i; j--) {
+                if (field.getCellField(i, j) == player.getFIGURE()) {
+                    count++;
+                    break;
+                }
+            }
         }
-        return "no winner";
+        if (count == field.getSIZE_FIELD()) {
+            return true;
+        }
+        return false;
     }
+
+
+
 
 }
