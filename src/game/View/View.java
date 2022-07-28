@@ -8,8 +8,8 @@ public class View {
 
     public View(Field field) {
         this.field = field;
-        System.out.println("The new game has just began");
-        System.out.println("---------------------------");
+        System.out.println("A new game has just began");
+        //System.out.println("---------------------------");
     }
     public void showField() {
         for (int i = 0; i < field.getSIZE_FIELD(); i += 1) {
@@ -17,7 +17,7 @@ public class View {
                 if (j != 0) {
                     System.out.print("|");
                 }
-                System.out.printf("[%s]", field.getCellField(i, j));
+                System.out.printf("[%s]", field.getCellField(i, j));       //команда достает значения массива
 
             }
             if (i != field.getSIZE_FIELD()-1) {
