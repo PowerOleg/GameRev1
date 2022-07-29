@@ -39,7 +39,7 @@ public class Field {
         }
     }
     private boolean checkedCoordinate(int coordinate) {
-        if (coordinate >= getMIN_NUMBER() && coordinate <= getMAX_NUMBER()) {
+        if (coordinate >= getMIN_NUMBER() && coordinate < getMAX_NUMBER()) {
             return true;
         } else {
             System.out.println("Wrong coordinates");
