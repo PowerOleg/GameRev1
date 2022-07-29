@@ -35,7 +35,7 @@ public class GameController {
 
 
 
-
+//currentMove создает temp с пустым StateField массивом и потом не обнавляет и никогда не выдает null
     public String currentMove() {
         String[][] temp = field.getStateField();
         int lengthTemp = temp.length;
@@ -71,7 +71,7 @@ return player2.getFIGURE();
         return true;
     }
     public boolean getWinner(Player player) {
-        System.out.printf("H=%s, V=%s, D1=%s, D2=%s\n",checkHorizontal(player), checkVertical(player),checkDiagonal1(player), checkDiagonal2(player));
+//        System.out.printf("H=%s, V=%s, D1=%s, D2=%s\n",checkHorizontal(player), checkVertical(player),checkDiagonal1(player), checkDiagonal2(player));
         return checkHorizontal(player) || checkVertical(player) || checkDiagonal1(player) || checkDiagonal2(player);
     }
     public String getWinnerName() {
@@ -123,13 +123,10 @@ return player2.getFIGURE();
     public boolean checkDiagonal1 (Player player) {
         int count=0;
         for (int i = 0; i < field.getSIZE_FIELD(); i++) {
-            for (int j = i; j <= i; j++) {
-                if (field.getCellField(i, j) == player.getFIGURE()) {
-                    count++;
-                    break;
+            if (field.getCellField(i, i) == player.getFIGURE()) {
+                count++;
                 }
             }
-        }
         if (count == field.getSIZE_FIELD()) {
             return true;
         }
@@ -139,11 +136,11 @@ return player2.getFIGURE();
     public boolean checkDiagonal2 (Player player) {
         int count = 0;
         for (int i = field.getSIZE_FIELD()-1; i >= 0; i--) {
-            for (int j = field.getSIZE_FIELD()-1-i; j >= field.getSIZE_FIELD()-1-i; j--) {
+            for (int j = field.getSIZE_FIELD()-1-i;;) {
                 if (field.getCellField(i, j) == player.getFIGURE()) {
                     count++;
-                    break;
                 }
+                break;
             }
         }
         if (count == field.getSIZE_FIELD()) {

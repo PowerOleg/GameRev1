@@ -18,7 +18,8 @@ public class Main {
         int x, y;
       //  String z;                                                       //добавил дичь v1
 while (!gameController.endGame()){
-    System.out.printf("Player%s:", Integer.parseInt(gameController.currentMove())+1);
+    //System.out.printf("Player%s:", Integer.parseInt(gameController.currentMove())+1);
+    System.out.println("Player1");
     x = gameController.inputCoordinate("x");
     y = gameController.inputCoordinate("y");
   //  z = gameController.inputStringCoordinate("z");                  //добавил дичь v1
@@ -26,16 +27,17 @@ while (!gameController.endGame()){
 
     gameController.movePlayer(x,y, player1);
     view.showField();
-    if (gameController.getWinner(player1)) {
+    if (gameController.getWinner(player1) || gameController.endGame()) {
         break;
     }
 
-    System.out.printf("Player%s:", Integer.parseInt(gameController.currentMove())+1);
+    //System.out.printf("Player%s:", Integer.parseInt(gameController.currentMove())+1);
+    System.out.println("Player2");
     x = gameController.inputCoordinate("x");
     y = gameController.inputCoordinate("y");
     gameController.movePlayer(x,y, player2);
     view.showField();
-    if (gameController.getWinner(player2)) {
+    if (gameController.getWinner(player2) || gameController.endGame()) {
         break;
     }
 }
